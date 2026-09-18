@@ -95,13 +95,9 @@ many models claim to be Claude when asked.
 
 ## Security
 
-**pi runs its own tools.** It reads, edits and writes files and runs shell
-commands through its own read/bash/edit/write tools, and none of those calls
-pass through Claude Code's permission prompts, tool policy or safety
-classifier. A pi agent can change your files without anyone being asked.
-
-Restrict what pi may do in pi's own configuration if that matters for your
-work, and read what you delegate with that in mind.
+pi runs its own read/bash/edit/write tools, outside Claude Code's permission
+prompts, tool policy and safety classifier. A pi agent can change files
+without asking. Restrict pi in its own config if that matters.
 
 ## How it works
 
@@ -127,30 +123,18 @@ totals are pi's real counts.
 
 ## Limitations
 
-- **Fallback without hooks.** If function hooks are off, the plugin's code
-  never loads and a "pi" agent runs as Claude Haiku (the `model:` in
-  `agents/pi.md`). The agent's description tells the calling Claude that an
-  answer without the `— answered by pi, …` line did not come from pi, so it
-  says so instead of passing it off as pi's work. That guard is instructions,
-  not code; check for the line yourself when it matters.
-- **Undocumented engine behaviour.** The plugin depends on things Claude Code
-  doesn't promise:
-  - the 10-second hook budget
-  - follow-ups read from the subagent's transcript file under
-    `~/.claude/projects/` (the API returns the main loop's messages instead)
-  - engine messages matched by their exact text (`[handback-send-enforce]`,
-    `<teammate-message …>`, and others)
-  - teammate detection by reading the parent process's command line with
-    `ps`
-- **Transcript noise.** Long runs show a `pi_progress` call roughly every 7
-  seconds. The main Claude also sees that tool; calling it is refused.
-- **Costs.** Claude Code may price pi's tokens as if they were Claude
-  tokens, so cost figures for pi agents are wrong. Check your provider's
-  billing.
-- **Teammate shutdown.** Shutdown requests from the lead reach pi as ordinary
-  messages, so a pi teammate may not shut down cleanly. Close its pane.
-- **Stopping.** Stopping an agent kills its pi process, except in the brief
-  moment between two steps, when pi finishes on its own.
+- **No hooks, no pi.** With function hooks off, a "pi" agent runs as Claude
+  Haiku. Real pi answers end with `— answered by pi, …`; Claude is told to
+  flag answers without it, but check yourself.
+- **Relies on undocumented engine behaviour:** the 10 s hook budget,
+  subagent transcript files under `~/.claude/projects/`, exact engine message
+  text, and `ps` to detect teammates. Claude Code updates may break it.
+- **`pi_progress` calls** appear in the transcript about every 7 s on long
+  runs.
+- **Cost figures** for pi agents are priced as Claude tokens; check your
+  provider's billing.
+- **Teammate shutdown** requests go to pi as plain messages; close the pane
+  yourself.
 
 ## Testing
 
