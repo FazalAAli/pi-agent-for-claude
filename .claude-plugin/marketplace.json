@@ -1,0 +1,16 @@
+{
+  "name": "pi-agent-for-claude",
+  "owner": { "name": "Fazal Ali" },
+  "description": "Run pi as a native Claude Code subagent.",
+  "plugins": [
+    {
+      "name": "pi-agent-for-claude",
+      "source": "./",
+      "description": "A `pi` subagent type whose model steps run the pi CLI: pi subagents and agent-team teammates in Claude Code's own agent UI, streamed live, on any model pi can reach.",
+      "version": "0.1.0",
+      "author": { "name": "Fazal Ali" },
+      "license": "MIT",
+      "category": "development"
+    }
+  ]
+}
