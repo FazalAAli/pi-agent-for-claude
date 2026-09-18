@@ -1,3 +1,7 @@
+
+
+https://github.com/user-attachments/assets/0bd4f5e4-c2d5-4e49-a882-30bf01357248
+
 # pi agent for claude
 
 Run [pi](https://pi.dev) as a native Claude Code subagent: it shows in the
